@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import time
 
-from ant.core import driver
-from ant.core import node
+from ant.core import driver, node
+from ant.core.constants import *
 
 from PowerMeterTx import PowerMeterTx
 from SpeedCadenceSensorRx import SpeedCadenceSensorRx
@@ -15,12 +15,12 @@ power_meter = None
 try:
     print "Using " + POWER_CALCULATOR.__class__.__name__
 
-    stick = driver.USB2Driver(None, log=LOG, debug=DEBUG)
+    stick = driver.USB2Driver(None)
     antnode = node.Node(stick)
     print "Starting ANT node"
     antnode.start()
-    key = node.NetworkKey('N:ANT+', NETKEY)
-    antnode.setNetworkKey(0, key)
+    network = node.NetworkKey(name='N:ANT+', key=NETKEY)
+    antnode.setNetworkKey(0, network)
 
     print "Starting speed sensor"
     try:
@@ -54,6 +54,7 @@ try:
 
 except Exception as e:
     print "Exception: "+repr(e)
+    
 finally:
     if speed_sensor:
         print "Closing speed sensor"
