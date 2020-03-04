@@ -21,7 +21,7 @@ class SpeedCadenceSensorRx(event.EventCallback):
         self.channel.name = 'C:SPEED'
         self.channel.assign('N:ANT+', CHANNEL_TYPE_TWOWAY_RECEIVE)
         if sensor_id == 0:
-            self.channel.setID(sensor_type, 0, 0)
+            self.channel.setID(sensor_type, 0, 1)
         else:
             self.channel.setID(sensor_type, sensor_id, 1)
         self.channel.setSearchTimeout(TIMEOUT_NEVER)
